@@ -1,0 +1,45 @@
+version: "3"
+services:
+  geocoder:
+    image: peterevans/nominatim:latest-focal
+    volumes:
+      - /root/nominatim/backups/:/srv/nominatim/backups/:rw
+      - /root/nominatim.sh:/docker-entrypoint.sh:ro
+    build:
+      context: ./
+      dockerfile: ./Dockerfile
+    environment:
+      # RESTORE | CREATE
+      - "NOMINATIM_MODE=CREATE"
+      - "NOMINATIM_PBF_URL=http://download.geofabrik.de/asia/maldives-latest.osm.pbf"
+
+    deploy:
+      mode: replicated
+      replicas: 1
+      restart_policy:
+        condition: on-failure
+        max_attempts: 3
+      update_config:
+        parallelism: 1
+        delay: 30s
+      resources:
+        limits:
+          cpus: "4.5"
+          memory: 12G
+        reservations:
+          cpus: "0.1"
+          memory: 100M
+    ulimits:
+      rtprio: 95
+      memlock: -1
+      nproc: 1024000
+      nofile:
+        soft: 1024000
+        hard: 1024000
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U postgres"]
+      interval: 1m
+      timeout: 3m
+      retries: 5
+    ports:
+      - "18095:8080"
