@@ -71,7 +71,7 @@ docker-compose --compatibility logs -f
 ## Test reverse geocode
 
 ```bash
-curl 'http://localhost:8055/reverse?lon=-0.143&lat=5.5535'
+curl 'http://localhost:8080/reverse?lon=-0.143&lat=5.5535'
 ```
 
 `Expected output.`
