@@ -53,7 +53,7 @@ services:
       timeout: 3m
       retries: 5
     ports:
-      - "18095:8080"
+      - "8080:8080"
 ```
 
 ## Build and run container instance
@@ -71,7 +71,7 @@ docker-compose --compatibility logs -f
 ## Test reverse geocode
 
 ```bash
-curl 'http://swarm.srv.bhn.ng:18089/reverse.php?format=json&lat=7.6878561826248&lon=6.3472389957393&zoom=16'
+curl 'http://localhost:8080/reverse.php?format=json&lat=7.6878561826248&lon=6.3472389957393&zoom=16'
 ```
 
 `Expected output.`
