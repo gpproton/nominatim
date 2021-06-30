@@ -1,7 +1,7 @@
 version: "3"
 services:
   geocoder:
-    image: nominatim-nigeria-ghana
+    image: gpproton/nominatim-nigeria-ghana
     volumes:
       - ./backups/:/srv/nominatim/backups/:rw
     build:
@@ -10,8 +10,7 @@ services:
     environment:
       # RESTORE | CREATE
       - "NOMINATIM_MODE=CREATE"
-      - "NOMINATIM_PBF_URL=http://download.geofabrik.de/asia/maldives-latest.osm.pbf"
-
+      - "NOMINATIM_PBF_URL=https://storage.11s.cloud/osm/nigeria-ghana-2021-06.osm.pbf"
     deploy:
       mode: replicated
       replicas: 1

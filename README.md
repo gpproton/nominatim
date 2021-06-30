@@ -13,6 +13,49 @@ A docker compose easy nominatim Nigeria & Ghana geocoder setup.
 git clone https://github.com/gpproton/nominatim-africa-setup.git
 ```
 
+```yml
+version: "3"
+services:
+  geocoder:
+    image: gpproton/nominatim-nigeria-ghana
+    volumes:
+      - ./backups/:/srv/nominatim/backups/:rw
+    environment:
+      # RESTORE | CREATE
+      - "NOMINATIM_MODE=CREATE"
+      - "NOMINATIM_PBF_URL=https://storage.11s.cloud/osm/nigeria-ghana-2021-06.osm.pbf"
+    deploy:
+      mode: replicated
+      replicas: 1
+      restart_policy:
+        condition: on-failure
+        max_attempts: 3
+      update_config:
+        parallelism: 1
+        delay: 30s
+      resources:
+        limits:
+          cpus: "1.5"
+          memory: 2G
+        reservations:
+          cpus: "0.1"
+          memory: 100M
+    ulimits:
+      rtprio: 95
+      memlock: -1
+      nproc: 1024000
+      nofile:
+        soft: 1024000
+        hard: 1024000
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U postgres"]
+      interval: 1m
+      timeout: 3m
+      retries: 5
+    ports:
+      - "18095:8080"
+```
+
 ## Build and run container instance
 
 ```bash
