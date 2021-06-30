@@ -71,22 +71,26 @@ docker-compose --compatibility logs -f
 ## Test reverse geocode
 
 ```bash
-curl 'http://localhost:8080/reverse?lon=-0.143&lat=5.5535'
+curl 'http://swarm.srv.bhn.ng:18089/reverse.php?format=json&lat=7.6878561826248&lon=6.3472389957393&zoom=16'
 ```
 
 `Expected output.`
 
-```xml
-<reversegeocode timestamp="Wed, 26 May 21 01:47:47 +0000" attribution="Data © OpenStreetMap contributors, ODbL 1.0. http://www.openstreetmap.org/copyright" querystring="lon=-0.143&lat=5.5535">
-<result place_id="1947781" osm_type="node" osm_id="105940398" ref="South La Estates" lat="5.5545345" lon="-0.1656563" boundingbox="5.5345345,5.5745345,-0.1856563,-0.1456563" place_rank="19" address_rank="20">South La Estates, La, Accra, Greater Accra Region, 6237, Ghana</result>
-<addressparts>
-<suburb>South La Estates</suburb>
-<town>La</town>
-<city>Accra</city>
-<state>Greater Accra Region</state>
-<postcode>6237</postcode>
-<country>Ghana</country>
-<country_code>gh</country_code>
-</addressparts>
-</reversegeocode>
+```json
+{
+  "place_id": 279698,
+  "licence": "Data © OpenStreetMap contributors, ODbL 1.0. https://osm.org/copyright",
+  "osm_type": "way",
+  "osm_id": 194738931,
+  "lat": "7.68726177198402",
+  "lon": "6.3491445347232975",
+  "display_name": "Okehi, Kogi, Nigeria",
+  "address": {
+    "county": "Okehi",
+    "state": "Kogi",
+    "country": "Nigeria",
+    "country_code": "ng"
+  },
+  "boundingbox": ["7.6338249", "7.6965915", "6.3301211", "6.3506716"]
+}
 ```
