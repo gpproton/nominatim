@@ -16,13 +16,13 @@ git clone https://github.com/gpproton/nominatim-africa-setup.git
 ## Build and run container instance
 
 ```bash
-docker-compose build --no-cache && docker-compose up -d
+docker-compose --compatibility build --no-cache && docker-compose --compatibility up -d
 ```
 
 ## Monitor log for instance
 
 ```bash
-docker-compose logs -f
+docker-compose --compatibility logs -f
 ```
 
 ## Test reverse geocode

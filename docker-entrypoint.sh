@@ -12,6 +12,7 @@ NOMINATIM_MODE=${NOMINATIM_MODE:="RESTORE"}
 if [ "$NOMINATIM_MODE" == "CREATE" ]; then
 
     # Retrieve the PBF file
+    echo 'Retrieve the PBF file...'
     curl -L $NOMINATIM_PBF_URL --create-dirs -o $NOMINATIM_DATA_PATH/$NOMINATIM_DATA_LABEL.osm.pbf
     
     # Allow user accounts read access to the data
@@ -36,12 +37,15 @@ if [ "$NOMINATIM_MODE" == "CREATE" ]; then
         service postgresql stop
         
         # Clear old backup data
+        echo 'Clear old backup data...'
         rm -rf $NOMINATIM_BACKUP_PATH/*
 
         # Archive PostgreSQL data
+        echo 'Archive PostgreSQL data...'
         tar cz $NOMINATIM_POSTGRESQL_DATA_PATH | split -b 1024MiB - $NOMINATIM_DATA_PATH/$NOMINATIM_DATA_LABEL.tgz_
 
         # Copy the archive to storage
+        echo 'Copy the archive to storage..'
         cp $NOMINATIM_DATA_PATH/*.tgz* $NOMINATIM_BACKUP_PATH/
 
         # Start PostgreSQL
@@ -63,6 +67,7 @@ else
         rm -rf ${NOMINATIM_POSTGRESQL_DATA_PATH:?}/*
 
         # Extract the archive
+        echo 'Extract the archive...'
         cat $NOMINATIM_DATA_PATH/$NOMINATIM_DATA_LABEL.tgz_* | tar xz -C $NOMINATIM_POSTGRESQL_DATA_PATH --strip-components=5
 
         # Start PostgreSQL

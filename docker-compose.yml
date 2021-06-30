@@ -1,10 +1,9 @@
 version: "3"
 services:
   geocoder:
-    image: peterevans/nominatim:latest-focal
+    image: nominatim-nigeria-ghana
     volumes:
-      - /root/nominatim/backups/:/srv/nominatim/backups/:rw
-      - /root/nominatim.sh:/docker-entrypoint.sh:ro
+      - ./backups/:/srv/nominatim/backups/:rw
     build:
       context: ./
       dockerfile: ./Dockerfile
@@ -24,8 +23,8 @@ services:
         delay: 30s
       resources:
         limits:
-          cpus: "4.5"
-          memory: 12G
+          cpus: "1.5"
+          memory: 2G
         reservations:
           cpus: "0.1"
           memory: 100M
