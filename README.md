@@ -1,6 +1,6 @@
-# Nominatim Nigeria & Ghana easy setup
+# Nominatim compose/swarm easy setup
 
-A docker compose easy nominatim Nigeria & Ghana geocoder setup.
+A docker compose easy nominatim geocoder setup.
 
 ## Requirements
 
